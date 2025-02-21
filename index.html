@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>👀👀👀Follow Along Nav</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <nav>
+      <ul class="menu">
+        <li><a href="">Home</a></li>
+        <li><a href="">Order Status</a></li>
+        <li><a href="">Tweets</a></li>
+        <li><a href="">Read Our History</a></li>
+        <li><a href="">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="wrapper">
+      <p>
+        Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit.
+        Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati
+        distinctio, aut itaque, qui vitae!
+      </p>
+      <p>
+        Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque
+        praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate
+        consequuntur facilis ullam dignissimos, aperiam quam veniam.
+      </p>
+      <p>
+        Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime
+        <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit
+        recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.
+      </p>
+      <p>
+        Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni
+        odit <a href="">totam</a> ut consequatur eveniet sunt quam provident
+        sapiente dicta neque quod.
+      </p>
+      <p>
+        Aliquam <a href="">dicta</a> sequi culpa fugiat
+        <a href="">consequuntur</a> pariatur optio ad minima, maxime
+        <a href="">odio</a>, distinctio magni impedit tempore enim repellendus
+        <a href="">repudiandae</a> quas!
+      </p>
+    </div>
+
+    <script>
+      const triggers = document.querySelectorAll("a");
+      const highlight = document.createElement("span");
+      highlight.classList.add("highlight");
+      document.body.append(highlight); // adds the highlight <span> to the end of the <body>. (The highlight will visually "follow" the hovered links.)
+
+      // This function runs whenever the user hovers over a link.
+      function highlightLink() {
+        console.log(this); // ex. <a href="">Home</a>
+
+        // this.getBoundingClientRect() gets the size and position of the hovered link.
+        const linkCoords = this.getBoundingClientRect();
+        console.log(linkCoords);
+        // ex. DOMRect { x: 20, y: 100, width: 52.68333435058594, height: 26.5, top: 100, right: 72.68333435058594, bottom: 126.5, left: 20 }
+
+        // Since getBoundingClientRect() gives coordinates relative to the viewport, we need to adjust for scrolling:
+        // - window.scrollY: Adds vertical scroll offset.
+        // - window.scrollX: Adds horizontal scroll offset.
+        // Ensures the highlight stays correctly positioned even if the page is scrolled.
+        const coords = {
+          width: linkCoords.width,
+          height: linkCoords.height,
+          top: linkCoords.top + window.scrollY,
+          left: linkCoords.left + window.scrollX,
+        };
+
+        // Sets the highlight span's size to match the hovered link.
+        highlight.style.width = `${coords.width}px`;
+        highlight.style.height = `${coords.height}px`;
+        // Uses transform: translate(x, y); to position the highlight at the correct coordinates.
+        highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+      }
+
+      triggers.forEach((a) => {
+        // Adds a mouseenter event listener to each link:
+        a.addEventListener("mouseenter", highlightLink);
+        // When a link is hovered, highlightLink runs.
+        // The highlight span moves and resizes to match the hovered link.
+      });
+    </script>
+  </body>
+</html>
